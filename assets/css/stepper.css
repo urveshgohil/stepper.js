@@ -1,0 +1,20 @@
+.stepper-pane:not(.show){display:none;}
+.stepper-tabs{position:relative;}
+.stepper-tabs::before,.stepper-tabs::after{content:"";position:absolute;top:0;width:1px;height:100%;background-color:#ccc;}
+.stepper-tabs::before{left:0;}
+.stepper-tabs::after{right:0;}
+.stepper-tabs-scroll{overflow:auto;}
+.stepper-tabs-wrapper{display:flex;min-width:420px;}
+.stepper-tab:not([data-disabled="true"]) {cursor: pointer;}
+.stepper-tab[data-disabled="true"] {pointer-events: none;}
+.stepper-tab{flex:1;padding:10px;text-align:center;cursor:pointer;border:1px solid #ccc;border-bottom-width:2px;border-bottom-style:solid;}
+.stepper-tab:not(:first-child){border-left:0;}
+.stepper-tab.step-done {border-bottom-color: #5DE67C;}
+.stepper-tab.active {border-bottom-color: #5DBFE6;}
+.stepper-indicator-main{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-bottom:8px;}
+.stepper-indicator-group {display: flex;flex-wrap: wrap;align-items: center;flex: 1;}
+.stepper-indicator-group .stepper-indicator {flex: 1 1 auto;height: 8px;background-color: #f1f1f1;}
+.stepper-indicator-group .stepper-indicator.step-done {background-color: #5DE67C;}
+.stepper-indicator-group .stepper-indicator.active {background-color: #5DBFE6;}
+.stepper-content{padding:10px;border-width:0 1px 1px 1px;border-style:solid;border-color:#ccc;}
+.stepper-bottom {display: flex;flex-wrap: wrap;justify-content: space-between;text-align: center;}
