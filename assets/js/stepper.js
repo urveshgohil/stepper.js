@@ -1,6 +1,5 @@
-/* Stepper Vanilla JS Library v1.3.3
+/* Stepper Vanilla JS Library v1.4.1
 =================================================================================
----------------------------------------------------------------------------------
 =================================================================================
 Copyright 2024 Urvesh Gohil
 Permission is hereby granted, free of charge, to any person obtaining a copy of
@@ -21,89 +20,42 @@ OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 "use strict";
-const stepper = (containerId, options ={}) => {
+const stepper = (containerId, options = {}) => {
     const CONTAINER = document.getElementById(containerId);
     let currentStep = 1;
-    const TOTALSTEPS = CONTAINER.querySelectorAll('.stepper-tab').length;
+    const TOTAL_STEPS = CONTAINER.querySelectorAll('.stepper-tab').length;
     let containerWidth = options.containerWidth || 420;
     let indicatorVisible = options.indicatorVisible || false;
     let doneProcess = options.doneProcess || false;
-    let nextButtonEvent =  options.nextButtonEvent ? options.nextButtonEvent : undefined;
-    let prevButtonEvent =  options.prevButtonEvent ? options.prevButtonEvent : undefined;
-    let submitButtonEvent =  options.submitButtonEvent ? options.submitButtonEvent : undefined;
+    let nextButtonEvent = options.nextButtonEvent || undefined;
+    let prevButtonEvent = options.prevButtonEvent || undefined;
+    let submitButtonEvent = options.submitButtonEvent || undefined;
+    let tabButtonEvent = options.tabButtonEvent || undefined;
 
-    if(indicatorVisible) {
-        const STEPPERINDICATORHTML = `<div class="stepper-indicator-main">
+    if (indicatorVisible) {
+        const STEPPER_INDICATOR_HTML = `<div class="stepper-indicator-main">
             <span class="stepper-indicator-group">
-                ${Array.from({ length: TOTALSTEPS }, (_, index) => `<span class="stepper-indicator"></span>`).join('')}
+                ${Array.from({ length: TOTAL_STEPS }, (_, index) => `<span class="stepper-indicator"></span>`).join('')}
             </span>
-            <span class="stepper-position-group"><span class="stepper-position">${currentStep}</span>/<span class="stepper-total">${TOTALSTEPS}</span></span>
+            <span class="stepper-position-group"><span class="stepper-position">${currentStep}</span>/<span class="stepper-total">${TOTAL_STEPS}</span></span>
         </div>`;
-        const STEPPERINDICATORELEMENT = CONTAINER.querySelector('.stepper-indicator-main');
-        if(STEPPERINDICATORELEMENT === null) {
-            const STEPPERGROUP = CONTAINER.querySelector('[data-id="stepper-group"]');
-            STEPPERGROUP.insertAdjacentHTML('beforebegin', STEPPERINDICATORHTML);
+        const STEPPER_INDICATOR_ELEMENT = CONTAINER.querySelector('.stepper-indicator-main');
+        if (STEPPER_INDICATOR_ELEMENT === null) {
+            const STEPPER_GROUP = CONTAINER.querySelector('[data-id="stepper-group"]');
+            STEPPER_GROUP.insertAdjacentHTML('beforebegin', STEPPER_INDICATOR_HTML);
         }
     }
 
     if (currentStep === 1) {
-        CONTAINER.querySelectorAll('.stepper-tab').forEach(tabs => {tabs.classList.remove('active');});
-        CONTAINER.querySelectorAll('.stepper-pane').forEach(panes => {panes.classList.remove('show');});
+        CONTAINER.querySelectorAll('.stepper-tab').forEach(tabs => { tabs.classList.remove('active'); });
+        CONTAINER.querySelectorAll('.stepper-pane').forEach(panes => { panes.classList.remove('show'); });
         CONTAINER.querySelector('.stepper-tab').classList.add('active');
         CONTAINER.querySelector('.stepper-pane').classList.add('show');
-        CONTAINER.querySelector('.prev-step').style.display = 'none';
-        if(CONTAINER.querySelector('.submit-step')) {
-            CONTAINER.querySelector('.submit-step').style.display = 'none';
+        CONTAINER.querySelector('.next-step').setAttribute("aria-hidden", "false");
+        CONTAINER.querySelector('.prev-step').setAttribute("aria-hidden", "true");
+        if (CONTAINER.querySelector('.submit-step')) {
+            CONTAINER.querySelector('.submit-step').setAttribute("aria-hidden", "true");
         }
-    }
-
-    CONTAINER.querySelectorAll('.stepper-tab').forEach(tab => {
-        tab.addEventListener('click', (event) => {
-            let clickedStep = parseInt(event.currentTarget.dataset.id.split('-')[1]);
-            switchTabAndPane(clickedStep);
-        });
-    });
-
-    CONTAINER.querySelector('.next-step').addEventListener('click', (e) => {
-        if (currentStep < TOTALSTEPS) {
-            currentStep++;
-            let dataDisabled = CONTAINER.querySelector(`.stepper-tab[data-id="stepper-${currentStep}"]`).getAttribute('data-disabled');
-            if (dataDisabled === "true") {
-                CONTAINER.querySelector(`.stepper-tab[data-id="stepper-${currentStep}"]`).setAttribute('data-disabled', 'false');
-            }
-            switchTabAndPane(currentStep);
-        }
-        if (nextButtonEvent && typeof nextButtonEvent === 'function') {
-            nextButtonEvent(e)
-        }
-    });
-
-    CONTAINER.querySelector('.prev-step').addEventListener('click', (e) => {
-        if (currentStep > 1) {
-            currentStep--;
-            switchTabAndPane(currentStep);
-        }
-        if (prevButtonEvent && typeof prevButtonEvent === 'function') {
-            prevButtonEvent(e)
-        }
-    });
-
-    if (submitButtonEvent && typeof submitButtonEvent === 'function') {
-        CONTAINER.querySelector('.submit-step').addEventListener('click', submitButtonEvent);
-    }
-
-    const getPosition = () => {
-        CONTAINER.querySelectorAll('.stepper-tab').forEach(tab => {
-            if(tab.classList.contains('active')) {
-                const TABOFFSETLEFT = tab.offsetLeft;
-                setTimeout(()=>{
-                    CONTAINER.querySelector('.stepper-tabs-scroll').scroll({
-                        left: TABOFFSETLEFT,
-                        behavior: 'smooth'
-                    });
-                },0)
-            }
-        });
     }
 
     const switchTabAndPane = (step) => {
@@ -113,14 +65,14 @@ const stepper = (containerId, options ={}) => {
         CONTAINER.querySelector('.stepper-pane.show').classList.remove('show');
         CONTAINER.querySelector(`[data-id="pane-${step}"]`).classList.add('show');
 
-        if(doneProcess) {
+        if (doneProcess) {
             CONTAINER.querySelectorAll('.stepper-tab').forEach((tab, index) => {
                 if (index < step - 1) {
                     tab.classList.add('step-done');
                 }
             });
         }
-        if(indicatorVisible) {
+        if (indicatorVisible) {
             CONTAINER.querySelectorAll('.stepper-indicator').forEach((indicator, index) => {
                 if (index < step - 1) {
                     indicator.classList.add('step-done');
@@ -129,32 +81,39 @@ const stepper = (containerId, options ={}) => {
         }
 
         updateButtonVisibility(step);
-        if(indicatorVisible) {
+        if (indicatorVisible) {
             updateStepper(step);
         }
-        if(CONTAINER.offsetWidth <= containerWidth) {
+        if (CONTAINER.offsetWidth <= containerWidth) {
             getPosition();
         }
-        window.removeEventListener('resize', function() {if(CONTAINER.offsetWidth <= containerWidth) {getPosition();}}, true);
-        window.addEventListener('resize', function() {if(CONTAINER.offsetWidth <= containerWidth) {getPosition();}}, true);
+
+        const getPositionEvent = () => {
+            if (CONTAINER.offsetWidth <= containerWidth) {
+                getPosition();
+            }
+        }
+
+        window.removeEventListener('resize', getPositionEvent);
+        window.addEventListener('resize', getPositionEvent);
     }
 
     const updateButtonVisibility = (currentStep) => {
         if (currentStep === 1) {
-            CONTAINER.querySelector('.prev-step').style.display = 'none';
+            CONTAINER.querySelector('.prev-step').setAttribute("aria-hidden", "true");
         } else {
-            CONTAINER.querySelector('.prev-step').style.display = 'block';
+            CONTAINER.querySelector('.prev-step').setAttribute("aria-hidden", "false");
         }
 
-        if (currentStep === TOTALSTEPS) {
-            CONTAINER.querySelector('.next-step').style.display = 'none';
-            if(CONTAINER.querySelector('.submit-step')) {
-                CONTAINER.querySelector('.submit-step').style.display = 'block';
+        if (currentStep === TOTAL_STEPS) {
+            CONTAINER.querySelector('.next-step').setAttribute("aria-hidden", "true");
+            if (CONTAINER.querySelector('.submit-step')) {
+                CONTAINER.querySelector('.submit-step').setAttribute("aria-hidden", "false");
             }
         } else {
-            CONTAINER.querySelector('.next-step').style.display = 'block';
-            if(CONTAINER.querySelector('.submit-step')) {
-                CONTAINER.querySelector('.submit-step').style.display = 'none';
+            CONTAINER.querySelector('.next-step').setAttribute("aria-hidden", "false");
+            if (CONTAINER.querySelector('.submit-step')) {
+                CONTAINER.querySelector('.submit-step').setAttribute("aria-hidden", "true");
             }
         }
     }
@@ -169,7 +128,78 @@ const stepper = (containerId, options ={}) => {
         });
         CONTAINER.querySelector('.stepper-position').innerText = currentStep;
     }
-    if(indicatorVisible) {
+
+    const stepperEventListener = (event) => {
+        if (tabButtonEvent && typeof tabButtonEvent === 'function') {
+            tabButtonEvent(event);
+        }
+        let clickedStep = parseInt(event.currentTarget.dataset.id.split('-')[1]);
+        switchTabAndPane(clickedStep);
+    }
+
+    const nextButtonProcess = (currentStep) => {
+        currentStep++;
+        let dataDisabled = CONTAINER.querySelector(`.stepper-tab[data-id="stepper-${currentStep}"]`).getAttribute('data-disabled');
+        if (dataDisabled === "true") {
+            CONTAINER.querySelector(`.stepper-tab[data-id="stepper-${currentStep}"]`).setAttribute('data-disabled', 'false');
+        }
+        switchTabAndPane(currentStep);
+    }
+    const nextEventListener = (event) => {
+        if (currentStep < TOTAL_STEPS) {
+            if (nextButtonEvent && typeof nextButtonEvent === 'function') {
+
+                nextButtonEvent(event, options = {
+                    currentStep,
+                    nextButtonProcess
+                });
+            }
+        }
+    }
+    const prevEventListener = (event) => {
+        if (currentStep > 1) {
+            currentStep--;
+            switchTabAndPane(currentStep);
+        }
+        if (prevButtonEvent && typeof prevButtonEvent === 'function') {
+            prevButtonEvent(event)
+        }
+    }
+    const submitEventListener = (event) => {
+        submitButtonEvent(event);
+    }
+
+    CONTAINER.querySelectorAll('.stepper-tab').forEach(tab => {
+        tab.removeEventListener('click', stepperEventListener);
+        tab.addEventListener('click', stepperEventListener);
+    });
+
+    CONTAINER.querySelector('.next-step').removeEventListener('click', nextEventListener);
+    CONTAINER.querySelector('.next-step').addEventListener('click', nextEventListener);
+
+    CONTAINER.querySelector('.prev-step').removeEventListener('click', prevEventListener);
+    CONTAINER.querySelector('.prev-step').addEventListener('click', prevEventListener);
+
+    if (submitButtonEvent && typeof submitButtonEvent === 'function') {
+        CONTAINER.querySelector('.submit-step').removeEventListener('click', submitEventListener);
+        CONTAINER.querySelector('.submit-step').addEventListener('click', submitEventListener);
+    }
+
+    const getPosition = () => {
+        CONTAINER.querySelectorAll('.stepper-tab').forEach(tab => {
+            if (tab.classList.contains('active')) {
+                const TAB_OFFSET_LEFT = tab.offsetLeft;
+                setTimeout(() => {
+                    CONTAINER.querySelector('.stepper-tabs-scroll').scroll({
+                        left: TAB_OFFSET_LEFT,
+                        behavior: 'smooth'
+                    });
+                }, 0)
+            }
+        });
+    }
+
+    if (indicatorVisible) {
         updateStepper(currentStep);
     }
 }

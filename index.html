@@ -52,21 +52,33 @@
             </div>
         </div>
     </div>
-    <script src="assets/js/stepper.js"></script>
+    <script src="assets/js/stepper.min.js"></script>
     <script>
         const stepper1 = stepper('stepper-container-1',
             options = {
-                containerWidth: 420,
+                containerWidth: 520,
                 indicatorVisible: true,
                 doneProcess: true,
-                nextButtonEvent: () => {
+                nextButtonEvent: (e, options) => {
                     console.log('Next button clicked!');
+                    if (options.currentStep === 1) {
+                        options.nextButtonProcess(options.currentStep);
+                    }
+                    if (options.currentStep === 2) {
+                        options.nextButtonProcess(options.currentStep);
+                    }
+                    if (options.currentStep === 3) {
+                        options.nextButtonProcess(options.currentStep);
+                    }
                 },
-                prevButtonEvent: () => {
+                prevButtonEvent: (e) => {
                     console.log('Prev button clicked!');
                 },
-                submitButtonEvent: () => {
+                submitButtonEvent: (e) => {
                     console.log('Submit button clicked!');
+                },
+                tabButtonEvent:(e) => {
+                    console.log(e.currentTarget.getAttribute('data-id'), e.currentTarget.innerText, 'Tab button clicked!');
                 }
             }
         );

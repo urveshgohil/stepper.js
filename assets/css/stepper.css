@@ -18,3 +18,4 @@
 .stepper-indicator-group .stepper-indicator.active {background-color: #5DBFE6;}
 .stepper-content{padding:10px;border-width:0 1px 1px 1px;border-style:solid;border-color:#ccc;}
 .stepper-bottom {display: flex;flex-wrap: wrap;justify-content: space-between;text-align: center;}
+[aria-hidden="true"] {display: none;}
