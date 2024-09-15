@@ -1,0 +1,5 @@
+*{padding: 0;margin: 0;}
+body,.st-button { font-family: "Inria Sans", sans-serif;}
+.stepper-section{padding:50px 0;display: flex;flex-wrap: wrap;}
+.container{padding-left:15px;padding-right:15px;width:100%;max-width:1170px;margin:0 auto;}
+.my-15{margin-block:15px;}

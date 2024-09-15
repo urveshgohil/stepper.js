@@ -1,21 +1,32 @@
-.stepper-pane:not(.show){display:none;}
-.stepper-tabs{position:relative;}
-.stepper-tabs::before,.stepper-tabs::after{content:"";position:absolute;top:0;width:1px;height:100%;background-color:#ccc;}
-.stepper-tabs::before{left:0;}
-.stepper-tabs::after{right:0;}
-.stepper-tabs-scroll{overflow:auto;}
-.stepper-tabs-wrapper{display:flex;min-width:420px;}
-.stepper-tab:not([data-disabled="true"]) {cursor: pointer;}
-.stepper-tab[data-disabled="true"] {pointer-events: none;}
-.stepper-tab{flex:1;padding:10px;text-align:center;cursor:pointer;border:1px solid #ccc;border-bottom-width:2px;border-bottom-style:solid;}
-.stepper-tab:not(:first-child){border-left:0;}
-.stepper-tab.step-done {border-bottom-color: #5DE67C;}
-.stepper-tab.active {border-bottom-color: #5DBFE6;}
-.stepper-indicator-main{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-bottom:8px;}
-.stepper-indicator-group {display: flex;flex-wrap: wrap;align-items: center;flex: 1;}
-.stepper-indicator-group .stepper-indicator {flex: 1 1 auto;height: 8px;background-color: #f1f1f1;}
-.stepper-indicator-group .stepper-indicator.step-done {background-color: #5DE67C;}
-.stepper-indicator-group .stepper-indicator.active {background-color: #5DBFE6;}
-.stepper-content{padding:10px;border-width:0 1px 1px 1px;border-style:solid;border-color:#ccc;}
-.stepper-bottom {display: flex;flex-wrap: wrap;justify-content: space-between;text-align: center;}
-[aria-hidden="true"] {display: none;}
+.st-tabs{position:relative;}
+.st-tabs::before,.st-tabs::after{content:"";position:absolute;top:0;width:1px;height:100%;background-color:#E6E6E6;}
+.st-tabs::before{left:0;}
+.st-tabs::after{right:0;}
+.st-tabs-scroll{overflow:auto;}
+.st-tabs-wrapper{display:flex;min-width:420px;}
+.st-tab:not([data-disabled="true"]) {cursor: pointer;}
+.st-tab.active {cursor: default;}
+.st-tab[data-disabled="true"] {pointer-events: none;}
+.st-tab{flex:1;padding:10px;text-align:center;cursor:pointer;border:1px solid #E6E6E6;background-color: #f7f7f7;}
+.st-tab:not(:first-child){border-left:0;}
+.st-tab.step-done {border-bottom-color: #1FC648;}
+.st-tab.active {border-bottom-color: #2376CE;}
+.st-indicator-main{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-bottom:15px;}
+.st-indicator-group {display: flex;flex-wrap: wrap;align-items: center;flex: 1;}
+.st-theme-default .st-indicator {flex: 1 1 auto; display: flex;flex-wrap: wrap;align-items: center; justify-content: center;position: relative;}
+.st-theme-default .st-indicator::before,.st-theme-default .st-indicator::after {height: 1px; width: calc(50% + 2px);background-color: #f1f1f1; position: absolute;top: 50%; transform: translateY(-50%);}
+.st-theme-default .st-indicator:not(:first-child):before, .st-theme-default .st-indicator:not(:last-child):after {content:"";}
+.st-theme-default .st-indicator::before {left: -1px;}
+.st-theme-default .st-indicator::after {right: -1px;}
+.st-theme-default .st-number {width: 23px; height: 23px;display: grid;place-items: center;background-color: #f1f1f1;border-radius: 50%;position: relative;z-index: 2;font-size: 12px;}
+.st-theme-default .st-indicator.step-done .st-number {background-color: #1FC648;color: #fff;}
+.st-theme-default .st-indicator.active .st-number {background-color: #2376CE;color: #fff;}
+.st-theme-classic .st-indicator {flex: 1 1 auto;min-height: 8px;background-color: #f1f1f1;}
+.st-theme-classic .st-indicator.step-done {background-color: #1FC648;}
+.st-content{padding:10px;border-width:0 1px 1px 1px;border-style:solid;border-color:#E6E6E6;}
+.st-bottom {display: flex;flex-wrap: wrap;justify-content: space-between;text-align: center;}
+.st-pane:not(.show), [aria-hidden="true"] {display: none;}
+.st-bottom {margin-top: 15px;}
+.st-button {padding: 8px 15px; border: 1px solid  #2376CE; color: #2376CE;background-color: transparent;transition: all 0.15s ease-in-out;cursor: pointer;}
+.st-button:hover {color: #FFF;}
+.st-theme-classic .st-indicator.active, .st-button:hover, .st-theme-default .st-indicator.step-done::before, .st-theme-default .st-indicator.active::before, .st-theme-default .st-indicator.step-done::after, .st-theme-default .st-indicator.step-done + .st-indicator:last-child::before {background-color: #2376CE;}

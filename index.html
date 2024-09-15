@@ -4,84 +4,267 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Stepper</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inria+Sans:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/index.css">
     <link rel="stylesheet" href="assets/css/stepper.css">
 </head>
 <body>
-    <div class="stepper-container" id="stepper-container-1">
-        <div data-id="stepper-group" class="stepper-group">
-            <div class="stepper-tabs">
-                <div class="stepper-tabs-scroll">
-                    <div class="stepper-tabs-wrapper">
-                        <div class="stepper-tab" data-id="stepper-1" data-disabled="false">
-                            <div class="stepper-tab-block">
-                                <h3>Tab 1</h3>
+    <section class="stepper-section">
+        <div class="container">
+            <div class="my-15">
+                <div class="st-container" st-container-1>
+                    <div class="st-group">
+                        <div class="st-tabs">
+                            <div class="st-tab">
+                                <div class="st-tab-block">
+                                    <h3>Title</h3>
+                                </div>
+                            </div>
+                            <div class="st-tab">
+                                <div class="st-tab-block">
+                                    <h3>Title</h3>
+                                </div>
+                            </div>
+                            <div class="st-tab">
+                                <div class="st-tab-block">
+                                    <h3>Title</h3>
+                                </div>
+                            </div>
+                            <div class="st-tab">
+                                <div class="st-tab-block">
+                                    <h3>Title</h3>
+                                </div>
                             </div>
                         </div>
-                        <div class="stepper-tab" data-id="stepper-2" data-disabled="true">
-                            <div class="stepper-tab-block">
-                                <h3>Tab 2</h3>
+                        <div class="st-content">
+                            <div class="st-pane">
+                                Step 1
+                            </div>
+                            <div class="st-pane">
+                                Step 2
+                            </div>
+                            <div class="st-pane">
+                                Step 3
+                            </div>
+                            <div class="st-pane">
+                                Step 4
                             </div>
                         </div>
-                        <div class="stepper-tab" data-id="stepper-3" data-disabled="true">
-                            <div class="stepper-tab-block">
-                                <h3>Tab 3</h3>
+                        <div class="st-bottom d-flex flex-wrap justify-content-between">
+                            <div>
+                                <button type="button" class="prev-step st-button">Previous</button>
+                            </div>
+                            <div>
+                                <button type="button" class="next-step st-button ml-1">Next</button>
+                                <button type="button" class="submit-step st-button ml-1">Submit</button>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="stepper-content">
-                <div class="stepper-pane" data-id="pane-1">
-                    Step 1
-                </div>
-                <div class="stepper-pane" data-id="pane-2">
-                    Step 2
-                </div>
-                <div class="stepper-pane" data-id="pane-3">
-                    Step 3
+            <div class="my-15">
+                <div class="st-container" st-container-2>
+                    <div class="st-group">
+                        <div class="st-tabs">
+                            <div class="st-tab">
+                                <div class="st-tab-block">
+                                    <h3>Title</h3>
+                                </div>
+                            </div>
+                            <div class="st-tab">
+                                <div class="st-tab-block">
+                                    <h3>Title</h3>
+                                </div>
+                            </div>
+                            <div class="st-tab">
+                                <div class="st-tab-block">
+                                    <h3>Title</h3>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="st-content">
+                            <div class="st-pane">
+                                Step 1
+                            </div>
+                            <div class="st-pane">
+                                Step 2
+                            </div>
+                            <div class="st-pane">
+                                Step 3
+                            </div>
+                        </div>
+                        <div class="st-bottom d-flex flex-wrap justify-content-between">
+                            <div>
+                                <button type="button" class="prev-step st-button">Previous</button>
+                            </div>
+                            <div>
+                                <button type="button" class="next-step st-button ml-1">Next</button>
+                                <button type="button" class="submit-step st-button ml-1">Submit</button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="stepper-bottom mt-2 d-flex flex-wrap justify-content-between">
-                <div>
-                    <button type="button" class="prev-step button">Previous</button>
+            <div class="my-15">
+                <div class="st-container" st-container-3>
+                    <div class="st-group">
+                        <div class="st-tabs">
+                            <div class="st-tab">
+                                <div class="st-tab-block">
+                                    <h3>Title</h3>
+                                </div>
+                            </div>
+                            <div class="st-tab">
+                                <div class="st-tab-block">
+                                    <h3>Title</h3>
+                                </div>
+                            </div>
+                            <div class="st-tab">
+                                <div class="st-tab-block">
+                                    <h3>Title</h3>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="st-content">
+                            <div class="st-pane">
+                                Step 1
+                            </div>
+                            <div class="st-pane">
+                                Step 2
+                            </div>
+                            <div class="st-pane">
+                                Step 3
+                            </div>
+                        </div>
+                        <div class="st-bottom d-flex flex-wrap justify-content-between">
+                            <div>
+                                <button type="button" class="prev-step st-button">Previous</button>
+                            </div>
+                            <div>
+                                <button type="button" class="next-step st-button ml-1">Next</button>
+                                <button type="button" class="submit-step st-button ml-1">Submit</button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div>
-                    <button type="button" class="next-step button ml-1">Next</button>
-                    <button type="button" class="submit-step button ml-1">Submit</button>
+            </div>
+            <div class="my-15">
+                <div class="st-container" st-container-4>
+                    <div class="st-group">
+                        <div class="st-tabs">
+                            <div class="st-tab">
+                                <div class="st-tab-block">
+                                    <h3>Title</h3>
+                                </div>
+                            </div>
+                            <div class="st-tab">
+                                <div class="st-tab-block">
+                                    <h3>Title</h3>
+                                </div>
+                            </div>
+                            <div class="st-tab">
+                                <div class="st-tab-block">
+                                    <h3>Title</h3>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="st-content">
+                            <div class="st-pane">
+                                Step 1
+                            </div>
+                            <div class="st-pane">
+                                Step 2
+                            </div>
+                            <div class="st-pane">
+                                Step 3
+                            </div>
+                        </div>
+                        <div class="st-bottom d-flex flex-wrap justify-content-between">
+                            <div>
+                                <button type="button" class="prev-step st-button">Previous</button>
+                            </div>
+                            <div>
+                                <button type="button" class="next-step st-button ml-1">Next</button>
+                                <button type="button" class="submit-step st-button ml-1">Submit</button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
+    </section>
     <script src="assets/js/stepper.min.js"></script>
     <script>
-        const stepper1 = stepper('stepper-container-1',
-            options = {
-                containerWidth: 520,
-                indicatorVisible: true,
-                doneProcess: true,
-                nextButtonEvent: (e, options) => {
-                    console.log('Next button clicked!');
-                    if (options.currentStep === 1) {
-                        options.nextButtonProcess(options.currentStep);
-                    }
-                    if (options.currentStep === 2) {
-                        options.nextButtonProcess(options.currentStep);
-                    }
-                    if (options.currentStep === 3) {
-                        options.nextButtonProcess(options.currentStep);
-                    }
-                },
-                prevButtonEvent: (e) => {
-                    console.log('Prev button clicked!');
-                },
-                submitButtonEvent: (e) => {
-                    console.log('Submit button clicked!');
-                },
-                tabButtonEvent:(e) => {
-                    console.log(e.currentTarget.getAttribute('data-id'), e.currentTarget.innerText, 'Tab button clicked!');
+        const stepper1 = stepper('[st-container-1],[st-container-3], [st-container-4]', {
+            containerWidth: 520,
+            indicator: {
+                visible: true,
+                theme: 'Default'
+            },
+            doneProcess: true,
+            allTabsDisabled: true,
+            containerId: (id) => {
+                console.log(id);
+            },
+            nextButtonEvent: (e, options) => {
+                console.log('Next button clicked!');
+                if (options.currentStep === 1) {
+                    options.nextButtonProcess(options.currentStep);
                 }
+                if (options.currentStep === 2) {
+                    options.nextButtonProcess(options.currentStep);
+                }
+                if (options.currentStep === 3) {
+                    options.nextButtonProcess(options.currentStep);
+                }
+            },
+            prevButtonEvent: (e) => {
+                console.log('Prev button clicked!');
+            },
+            submitButtonEvent: (e) => {
+                console.log('Submit button clicked!');
+            },
+            tabButtonEvent:(e) => {
+                console.log(e.currentTarget.getAttribute('data-id'), e.currentTarget.innerText, 'Tab button clicked!');
             }
-        );
+        });
+        const stepper2 = stepper('[st-container-2]', {
+            containerWidth: 520,
+            indicator: {
+                visible: true,
+                theme: 'Classic'
+            },
+            doneProcess: true,
+            allTabsDisabled: true,
+            containerId: (id) => {
+                console.log(id);
+            },
+            nextButtonEvent: (e, options) => {
+                console.log('Next button clicked!');
+                if (options.currentStep === 1) {
+                    options.nextButtonProcess(options.currentStep);
+                }
+                if (options.currentStep === 2) {
+                    options.nextButtonProcess(options.currentStep);
+                }
+                if (options.currentStep === 3) {
+                    options.nextButtonProcess(options.currentStep);
+                }
+            },
+            prevButtonEvent: (e) => {
+                console.log('Prev button clicked!');
+            },
+            submitButtonEvent: (e) => {
+                console.log('Submit button clicked!');
+            },
+            tabButtonEvent:(e) => {
+                console.log(e.currentTarget.getAttribute('data-id'), e.currentTarget.innerText, 'Tab button clicked!');
+            }
+        });
     </script>
 </body>
 </html>
