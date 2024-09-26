@@ -1,4 +1,4 @@
-/* Stepper Vanilla JS Library v2.0  */
+/* Stepper Vanilla JS Library v2.2.0  */
 "use strict";
 const stepper = (selector, options = {}) => {
     const CONTAINER = document.querySelectorAll(selector);
@@ -8,6 +8,9 @@ const stepper = (selector, options = {}) => {
     const TO = (value, optionalValue) => value ?? optionalValue;
     const AriaHidden = (element, value) => element.setAttribute("aria-hidden", value);
     const DataDisabled = (element, value) => element.setAttribute("data-disabled", value);
+    const hasClass = (element, className) => element.classList.contains(className);
+    const addClass = (element, className) => element.classList.add(className);
+    const removeClass = (element, className) => element.classList.remove(className);
 
     const TabsWrapper = () => `<div class="st-tabs-scroll"><div class="st-tabs-wrapper"></div></div>`;
     const IndicatorWrapper = (children) => `<div class="st-indicator-main" role="indicator"><span class="st-indicator-group">${children}</div></div>`;
@@ -34,14 +37,17 @@ const stepper = (selector, options = {}) => {
         const indicatorVisible = TO(options?.indicator?.visible, false);
         const indicatorTheme = TO(options?.indicator?.theme, "Default");
         const doneProcess = TO(options?.doneProcess, false);
-        const allTabsDisabled = TO(options?.allTabsDisabled, true);
         const nextButtonEvent = TO(options?.nextButtonEvent, undefined);
         const prevButtonEvent = TO(options?.prevButtonEvent, undefined);
         const submitButtonEvent = TO(options?.submitButtonEvent, undefined);
         const tabButtonEvent = TO(options?.tabButtonEvent, undefined);
         const containerId = TO(options?.containerId, undefined);
+        const submitted = TO(options?.submitted, false);
+        let updateTabsDisabled = options?.allTabsDisabled;
+        if (submitted) updateTabsDisabled = false;
+        const allTabsDisabled = TO(updateTabsDisabled, true);
 
-        CONTAINERS.classList.add(`st-theme-${indicatorTheme.toLowerCase()}`);
+        addClass(CONTAINERS, `st-theme-${indicatorTheme.toLowerCase()}`);
         const stepperTabsGroup = CONTAINERS.querySelector('.st-tabs');
         stepperTabsGroup.insertAdjacentHTML('beforeend', TabsWrapper());
         const stepperTabsWrapper = stepperTabsGroup.querySelector('.st-tabs-wrapper');
@@ -52,12 +58,15 @@ const stepper = (selector, options = {}) => {
             'role': `stepper`,
         });
         stepperTabs.forEach((t, i) => {
-            stepperTabsWrapper.appendChild(t)
+            stepperTabsWrapper.appendChild(t);
             ATTRIBUTES(t, {
                 'data-id': `tab-${i + 1}`,
                 'role': `tab`,
                 'data-disabled': allTabsDisabled === false ? `false` : `true`,
             });
+            if (submitted && t.getAttribute('data-disabled') === 'false') {
+                addClass(t, 'step-done');
+            }
         });
         stepperPanes.forEach((p, i) => {
             ATTRIBUTES(p, {
@@ -82,14 +91,20 @@ const stepper = (selector, options = {}) => {
             }
             const INDICATOR_ELEMENT = CONTAINERS.querySelector('.st-indicator-main');
             if (INDICATOR_ELEMENT === null) stepperGroup.insertAdjacentHTML('beforebegin', INDICATOR_HTML);
-        };
+
+            if (submitted) {
+                CONTAINERS.querySelectorAll('.st-indicator').forEach(indicator => {
+                    addClass(indicator, 'step-done');
+                });
+            }
+        }
 
         if (currentStep === 1) {
-            stepperTabs.forEach(t => t.classList.remove('active'));
-            stepperPanes.forEach(p => p.classList.remove('show'));
-            stepperTab.classList.add('active');
+            stepperTabs.forEach(t => removeClass(t, 'active'));
+            stepperPanes.forEach(p => removeClass(p, 'show'));
+            addClass(stepperTab, 'active');
             DataDisabled(stepperTab, "false");
-            stepperPane.classList.add('show');
+            addClass(stepperPane, 'show');
             AriaHidden(stepperPane, "false");
             ATTRIBUTES(nextStep, {
                 'data-id': `next-${ID}`,
@@ -107,8 +122,8 @@ const stepper = (selector, options = {}) => {
                     'aria-hidden': `true`,
                     'role': `button`,
                 });
-            };
-        };
+            }
+        }
 
         const containerIDS = (id) => {
             if (containerId && typeof containerId === 'function') containerId(id);
@@ -117,23 +132,23 @@ const stepper = (selector, options = {}) => {
         const switchTabAndPane = (step) => {
             currentStep = step;
             const activeTab = CONTAINERS.querySelector('.st-tab.active');
-            if (activeTab) activeTab.classList.remove('active');
-            const stepTab = CONTAINERS.querySelector(`[data-id="tab-${step}"]`)
-            if (stepTab) stepTab.classList.add('active');
+            if (activeTab) removeClass(activeTab, 'active');
+            const stepTab = CONTAINERS.querySelector(`[data-id="tab-${step}"]`);
+            if (stepTab) addClass(stepTab, 'active');
             AriaHidden(CONTAINERS.querySelector('.st-pane.show'), "true");
-            const showPane = CONTAINERS.querySelector('.st-pane.show')
-            if (showPane) showPane.classList.remove('show');
-            const stepPane = CONTAINERS.querySelector(`[data-id="pane-${step}"]`)
-            if (stepPane) stepPane.classList.add('show');
+            const showPane = CONTAINERS.querySelector('.st-pane.show');
+            if (showPane) removeClass(showPane, 'show');
+            const stepPane = CONTAINERS.querySelector(`[data-id="pane-${step}"]`);
+            if (stepPane) addClass(stepPane, 'show');
             AriaHidden(CONTAINERS.querySelector(`[data-id="pane-${step}"]`), "false");
 
             if (doneProcess || indicatorVisible) {
                 stepperTabs.forEach((t, i) => {
                     if (i < step - 1) {
-                        if (doneProcess) t.classList.add('step-done');
+                        if (doneProcess) addClass(t, 'step-done');
                         if (indicatorVisible) {
                             const ind = CONTAINERS.querySelector(`.st-indicator:nth-child(${i + 1})`);
-                            if (ind) ind.classList.add('step-done');
+                            if (ind) addClass(ind, 'step-done');
                         }
                     }
                 });
@@ -161,28 +176,28 @@ const stepper = (selector, options = {}) => {
                 AriaHidden(prevStep, "true");
             } else {
                 AriaHidden(prevStep, "false");
-            };
+            }
 
             if (currentStep === TOTAL_STEPS) {
                 AriaHidden(nextStep, "true");
                 if (submitStep) {
                     AriaHidden(submitStep, "false");
-                };
+                }
             } else {
                 AriaHidden(nextStep, "false");
                 if (submitStep) {
                     AriaHidden(submitStep, "true");
-                };
-            };
+                }
+            }
         };
 
         const updateStepper = (currentStep) => {
             CONTAINERS.querySelectorAll('.st-indicator').forEach((ind, i) => {
                 if (i === (currentStep - 1)) {
-                    ind.classList.add('active');
+                    addClass(ind, 'active');
                 } else {
-                    ind.classList.remove('active');
-                };
+                    removeClass(ind, 'active');
+                }
             });
 
             if (indicatorTheme !== "Default") CONTAINERS.querySelector('.st-position').innerText = currentStep;
@@ -190,10 +205,11 @@ const stepper = (selector, options = {}) => {
 
         const stepperEventListener = (event) => {
             const currentTab = event.currentTarget;
-            if (!currentTab.classList.contains('active')) {
+            if (!hasClass(currentTab, 'active')) {
                 if (tabButtonEvent && typeof tabButtonEvent === 'function') tabButtonEvent(event, ID);
                 const clickedStep = parseInt(currentTab.dataset.id.split('-')[1]);
                 switchTabAndPane(clickedStep);
+                DataDisabled(submitStep, false);
             }
         };
 
@@ -207,24 +223,34 @@ const stepper = (selector, options = {}) => {
         const nextEventListener = (event) => {
             if (currentStep < TOTAL_STEPS) {
                 if (nextButtonEvent && typeof nextButtonEvent === 'function') {
-                    nextButtonEvent(event, options = {
+                    nextButtonEvent(event, {
                         currentStep,
                         nextButtonProcess,
                         id: ID
                     });
-                };
-            };
+                }
+            }
         };
 
         const prevEventListener = (event) => {
             if (currentStep > 1) {
                 currentStep--;
                 switchTabAndPane(currentStep);
-            };
-            if (prevButtonEvent && typeof prevButtonEvent === 'function') prevButtonEvent(event, ID);
+            }
+            if (prevButtonEvent && typeof prevButtonEvent === 'function') {
+                prevButtonEvent(event, ID);
+                DataDisabled(submitStep, false);
+            }
         };
 
         const submitEventListener = (event) => {
+            const stIndicatorLast = CONTAINERS.querySelector('.st-indicator:last-child');
+            const stepperTabLast = CONTAINERS.querySelector('.st-tab:last-child');
+            if (!hasClass(stIndicatorLast, 'step-done')) {
+                addClass(stIndicatorLast, `step-done`);
+                addClass(stepperTabLast, `step-done`);
+            }
+            DataDisabled(submitStep, true);
             submitButtonEvent(event, ID);
         };
 
@@ -233,7 +259,7 @@ const stepper = (selector, options = {}) => {
         let resizeTimeOut;
         const getPosition = () => {
             stepperTabs.forEach(t => {
-                if (t.classList.contains('active')) {
+                if (hasClass(t, 'active')) {
                     cancelAnimationFrame(resizeTimeOut);
                     resizeTimeOut = requestAnimationFrame(() => {
                         CONTAINERS.querySelector('.st-tabs-scroll').scroll({

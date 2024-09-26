@@ -18,7 +18,7 @@
 .st-theme-default .st-indicator:not(:first-child):before, .st-theme-default .st-indicator:not(:last-child):after {content:"";}
 .st-theme-default .st-indicator::before {left: -1px;}
 .st-theme-default .st-indicator::after {right: -1px;}
-.st-theme-default .st-number {width: 23px; height: 23px;display: grid;place-items: center;background-color: #f1f1f1;border-radius: 50%;position: relative;z-index: 2;font-size: 12px;}
+.st-theme-default .st-number {width: 23px; height: 23px;display: grid;place-items: center;background-color: #f1f1f1;border-radius: 50%;position: relative;z-index: 2;font-size: 12px;user-select: none;}
 .st-theme-default .st-indicator.step-done .st-number {background-color: #1FC648;color: #fff;}
 .st-theme-default .st-indicator.active .st-number {background-color: #2376CE;color: #fff;}
 .st-theme-classic .st-indicator {flex: 1 1 auto;min-height: 8px;background-color: #f1f1f1;}
@@ -29,4 +29,6 @@
 .st-bottom {margin-top: 15px;}
 .st-button {padding: 8px 15px; border: 1px solid  #2376CE; color: #2376CE;background-color: transparent;transition: all 0.15s ease-in-out;cursor: pointer;}
 .st-button:hover {color: #FFF;}
-.st-theme-classic .st-indicator.active, .st-button:hover, .st-theme-default .st-indicator.step-done::before, .st-theme-default .st-indicator.active::before, .st-theme-default .st-indicator.step-done::after, .st-theme-default .st-indicator.step-done + .st-indicator:last-child::before {background-color: #2376CE;}
+.st-button[data-disabled="true"] {pointer-events: none;background-color: #f7f7f7;border-color: #f7f7f7;color: #272727;}
+.st-theme-classic .st-indicator.active, .st-button:hover {background-color: #2376CE;}
+.st-theme-default .st-indicator.step-done::before, .st-theme-default .st-indicator.active::before, .st-theme-default .st-indicator.step-done::after, .st-theme-default .st-indicator.step-done + .st-indicator:last-child::before {background-color: #1FC648;}
