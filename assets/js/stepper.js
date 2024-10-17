@@ -1,24 +1,23 @@
-/* Stepper Vanilla JS Library v2.2.0  */
+/* Stepper Vanilla JS Library v2.2.6  */
 "use strict";
 const stepper = (selector, options = {}) => {
-    const CONTAINER = document.querySelectorAll(selector);
-
+    const CONTAINER = document.querySelectorAll(selector);    
     const NUMBER = () => Math.floor(10000 + Math.random() * 90000);
-    const ATTRIBUTES = (element, attributes) => Object.keys(attributes).forEach(key => element.setAttribute(key, attributes[key]));
-    const TO = (value, optionalValue) => value ?? optionalValue;
-    const AriaHidden = (element, value) => element.setAttribute("aria-hidden", value);
-    const DataDisabled = (element, value) => element.setAttribute("data-disabled", value);
+    const ATTRIBUTES = (element, attributes) => Object.keys(attributes).forEach(key => element.setAttribute(key, attributes[key]));    
     const hasClass = (element, className) => element.classList.contains(className);
     const addClass = (element, className) => element.classList.add(className);
     const removeClass = (element, className) => element.classList.remove(className);
-
-    const TabsWrapper = () => `<div class="st-tabs-scroll"><div class="st-tabs-wrapper"></div></div>`;
-    const IndicatorWrapper = (children) => `<div class="st-indicator-main" role="indicator"><span class="st-indicator-group">${children}</div></div>`;
-    const IndicatorClassic = (totalSteps, currentStep) => IndicatorWrapper(`${Array.from({ length: totalSteps }, () => `<span class="st-indicator"></span>`).join('')}</span>
-        <span class="st-position-group"><span class="st-position">${currentStep}</span>/<span class="st-total">${totalSteps}</span>`);
-    const IndicatorDefault = (totalSteps) => IndicatorWrapper(`${Array.from({ length: totalSteps }, (_, index) => `<span class="st-indicator"><span class="st-number">${index + 1}</span></span>`).join('')}</span>`);
-
     CONTAINER.forEach((CONTAINERS, INDEX) => {
+        const AriaHidden = (element, value) => element.setAttribute("aria-hidden", value);
+        const DataDisabled = (element, value) => element.setAttribute("data-disabled", value);
+        const TabsWrapper = () => `<div class="st-tabs-scroll"><div class="st-tabs-wrapper"></div></div>`;
+        const TO = (value, optionalValue) => value ?? optionalValue;
+        const IndicatorWrapper = (children) => `<div class="st-indicator-main" role="indicator"><span class="st-indicator-group">${children}</div></div>`;
+        const IndicatorClassic = (totalSteps, currentStep) => IndicatorWrapper(`${Array.from({ length: totalSteps }, () => `<span class="st-indicator"></span>`).join('')}</span>
+            <span class="st-position-group"><span class="st-position">${currentStep}</span>/<span class="st-total">${totalSteps}</span>`);
+        const IndicatorDefault = (totalSteps) => IndicatorWrapper(`${Array.from({ length: totalSteps }, (_, index) => `<span class="st-indicator"><span class="st-number">${index + 1}</span></span>`).join('')}</span>`);
+        const stIndicatorMainRemove = () => { if (CONTAINERS.querySelector('.st-indicator-main')) CONTAINERS.querySelector('.st-indicator-main').remove(); }
+        stIndicatorMainRemove();
         const DYNAMIC = NUMBER();
         const ID = `${DYNAMIC}${INDEX + 1}`;
         const stepperGroup = CONTAINERS.querySelector('.st-group');
@@ -29,13 +28,14 @@ const stepper = (selector, options = {}) => {
         const nextStep = CONTAINERS.querySelector('.next-step');
         const prevStep = CONTAINERS.querySelector('.prev-step');
         const submitStep = CONTAINERS.querySelector('.submit-step');
+        const stIndicators = CONTAINERS.querySelectorAll('.st-indicator .st-number');
 
         let currentStep = 1;
         const TOTAL_STEPS = stepperTabs.length;
 
         const containerWidth = TO(options?.containerWidth, 420);
         const indicatorVisible = TO(options?.indicator?.visible, false);
-        const indicatorTheme = TO(options?.indicator?.theme, "Default");
+        const indicatorTheme = TO(options?.indicator?.theme, "Classic");
         const doneProcess = TO(options?.doneProcess, false);
         const nextButtonEvent = TO(options?.nextButtonEvent, undefined);
         const prevButtonEvent = TO(options?.prevButtonEvent, undefined);
@@ -47,7 +47,14 @@ const stepper = (selector, options = {}) => {
         if (submitted) updateTabsDisabled = false;
         const allTabsDisabled = TO(updateTabsDisabled, true);
 
+
+        const stThemeClass = ['st-theme-default', 'st-theme-classic']
+        CONTAINERS.classList.remove(...stThemeClass)
         addClass(CONTAINERS, `st-theme-${indicatorTheme.toLowerCase()}`);
+        if (stIndicators && indicatorTheme === 'Classic') {
+            stIndicators.forEach((si) => si.remove());
+        }
+
         const stepperTabsGroup = CONTAINERS.querySelector('.st-tabs');
         stepperTabsGroup.insertAdjacentHTML('beforeend', TabsWrapper());
         const stepperTabsWrapper = stepperTabsGroup.querySelector('.st-tabs-wrapper');
@@ -77,20 +84,22 @@ const stepper = (selector, options = {}) => {
         });
 
         if (indicatorVisible) {
-            let INDICATOR_HTML = "";
-            switch (indicatorTheme) {
-                case "Default":
-                    INDICATOR_HTML = IndicatorDefault(TOTAL_STEPS);
-                    break;
-                case "Classic":
-                    INDICATOR_HTML = IndicatorClassic(TOTAL_STEPS, currentStep);
-                    break;
-                default:
-                    INDICATOR_HTML = IndicatorDefault(TOTAL_STEPS, currentStep);
-                    break;
+            if (indicatorTheme === 'Default' || indicatorTheme === 'Classic') {
+                let INDICATOR_HTML = ``;            
+                switch (indicatorTheme) {
+                    case "Default":
+                        INDICATOR_HTML = IndicatorDefault(TOTAL_STEPS);
+                        break;
+                    case "Classic":
+                        INDICATOR_HTML = IndicatorClassic(TOTAL_STEPS, currentStep);
+                        break;
+                    default:
+                        INDICATOR_HTML = IndicatorClassic(TOTAL_STEPS);
+                        break;
+                }
+                const INDICATOR_ELEMENT = CONTAINERS.querySelector('.st-indicator-main');
+                if (INDICATOR_ELEMENT === null) stepperGroup.insertAdjacentHTML('beforebegin', INDICATOR_HTML);
             }
-            const INDICATOR_ELEMENT = CONTAINERS.querySelector('.st-indicator-main');
-            if (INDICATOR_ELEMENT === null) stepperGroup.insertAdjacentHTML('beforebegin', INDICATOR_HTML);
 
             if (submitted) {
                 CONTAINERS.querySelectorAll('.st-indicator').forEach(indicator => {
@@ -199,8 +208,7 @@ const stepper = (selector, options = {}) => {
                     removeClass(ind, 'active');
                 }
             });
-
-            if (indicatorTheme !== "Default") CONTAINERS.querySelector('.st-position').innerText = currentStep;
+            if (CONTAINERS.querySelector('.st-position')) CONTAINERS.querySelector('.st-position').innerText = currentStep;
         };
 
         const stepperEventListener = (event) => {
@@ -244,11 +252,13 @@ const stepper = (selector, options = {}) => {
         };
 
         const submitEventListener = (event) => {
-            const stIndicatorLast = CONTAINERS.querySelector('.st-indicator:last-child');
             const stepperTabLast = CONTAINERS.querySelector('.st-tab:last-child');
-            if (!hasClass(stIndicatorLast, 'step-done')) {
-                addClass(stIndicatorLast, `step-done`);
+            if (!hasClass(stepperTabLast, 'step-done')) {
                 addClass(stepperTabLast, `step-done`);
+                if (indicatorVisible) {
+                    const stIndicatorLast = CONTAINERS.querySelector('.st-indicator:last-child');
+                    addClass(stIndicatorLast, `step-done`);
+                }
             }
             DataDisabled(submitStep, true);
             submitButtonEvent(event, ID);
