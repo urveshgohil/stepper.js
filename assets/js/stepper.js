@@ -1,4 +1,4 @@
-/* Stepper Vanilla JS Library v2.2.6  */
+/* Stepper Vanilla JS Library v2.2.8  */
 "use strict";
 const stepper = (selector, options = {}) => {
     const CONTAINER = document.querySelectorAll(selector);    
@@ -65,6 +65,7 @@ const stepper = (selector, options = {}) => {
             'role': `stepper`,
         });
         stepperTabs.forEach((t, i) => {
+            t.classList.remove('step-done');
             stepperTabsWrapper.appendChild(t);
             ATTRIBUTES(t, {
                 'data-id': `tab-${i + 1}`,
@@ -255,7 +256,8 @@ const stepper = (selector, options = {}) => {
             const stepperTabLast = CONTAINERS.querySelector('.st-tab:last-child');
             if (!hasClass(stepperTabLast, 'step-done')) {
                 addClass(stepperTabLast, `step-done`);
-                if (indicatorVisible) {
+                const INDICATOR_ELEMENT = CONTAINERS.querySelector('.st-indicator-main');                
+                if (INDICATOR_ELEMENT) {
                     const stIndicatorLast = CONTAINERS.querySelector('.st-indicator:last-child');
                     addClass(stIndicatorLast, `step-done`);
                 }
