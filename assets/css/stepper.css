@@ -31,9 +31,8 @@
 .st-theme-classic .st-indicator {flex: 1 1 auto;min-height: 8px;background-color: var(--grey-2);}
 .st-theme-classic .st-indicator.step-done {background-color: var(--process-done);}
 .st-content{padding:10px;border-width:0 1px 1px 1px;border-style:solid;border-color:var(--grey-1);}
-.st-bottom {display: flex;flex-wrap: wrap;justify-content: space-between;text-align: center;}
+.st-bottom{display:flex;flex-wrap:wrap;justify-content:space-between;text-align:center;margin-top:15px}
 .st-pane:not(.show), [aria-hidden="true"] {display: none;}
-.st-bottom {margin-top: 15px;}
 .st-button {padding: 8px 15px; border: 1px solid  var(--active); color: var(--active);background-color: transparent;transition: all 0.15s ease-in-out;cursor: pointer;}
 .st-button:hover {color: var(--white);}
 .st-button[data-disabled="true"] {pointer-events: none;background-color: var(--grey-3);border-color: var(--grey-3);color: var(--dark);}

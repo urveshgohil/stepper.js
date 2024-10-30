@@ -1,4 +1,4 @@
-/* Stepper Vanilla JS Library v2.2.8  */
+/* Stepper Vanilla JS Library v2.2.9  */
 "use strict";
 const stepper = (selector, options = {}) => {
     const CONTAINER = document.querySelectorAll(selector);    
@@ -169,7 +169,6 @@ const stepper = (selector, options = {}) => {
             if (CONTAINERS.offsetWidth <= containerWidth) getPosition();
 
             let resizeTimeout;
-
             const getPositionEvent = () => {
                 if (resizeTimeout) {
                     cancelAnimationFrame(resizeTimeout);

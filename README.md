@@ -1,11 +1,11 @@
-# stepper.JS 2.2.8
+# stepper.JS 2.2.9
 
 Enhances UI with intuitive step-by-step navigation with stepper vanilla JS library.
 `Stepper.JS` is a versatile vanilla JavaScript library designed to simplify the implementation of step-by-step user interfaces. With `Stepper.JS`, developers can create intuitive and interactive workflows, guiding users through complex processes with ease. Let's delve into the documentation to explore its features, usage, and customization options.
 
 ## Introduction to Stepper.JS
 
-`Stepper.JS` version 2.2.8 is new features, 10% faster and more flexible JavaScript library compared to the previous version, enabling developers to easily build step-by-step navigation. Whether you're designing a multi-step form, a guided tour, or a wizard-like interface, `Stepper.JS` provides the necessary tools to streamline the user experience. (1T ops/s ± 54.5% Fastest)
+`Stepper.JS` version 2.2.9 is new features, 10% faster and more flexible JavaScript library compared to the previous version, enabling developers to easily build step-by-step navigation. Whether you're designing a multi-step form, a guided tour, or a wizard-like interface, `Stepper.JS` provides the necessary tools to streamline the user experience. (1T ops/s ± 54.5% Fastest)
 
 ## Features
 
@@ -65,11 +65,11 @@ To start using `Stepper.JS` in your project, follow these simple steps:
             </div>
             <div class="st-bottom d-flex flex-wrap justify-content-between">
                 <div>
-                    <button type="button" class="st-bottom prev-step">Previous</button>
+                    <button type="button" class="st-button prev-step">Previous</button>
                 </div>
                 <div>
-                    <button type="button" class="st-bottom next-step ml-1">Next</button>
-                    <button type="button" class="st-bottom submit-step ml-1">Submit</button>
+                    <button type="button" class="st-button next-step ml-1">Next</button>
+                    <button type="button" class="st-button submit-step ml-1">Submit</button>
                 </div>
             </div>
         </div>
