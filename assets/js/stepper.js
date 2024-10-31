@@ -1,4 +1,4 @@
-/* Stepper Vanilla JS Library v2.2.10  */
+/* Stepper Vanilla JS Library v2.2.12  */
 "use strict";
 const stepper = (selector, options = {}) => {
     const CONTAINER = document.querySelectorAll(selector);    
@@ -54,10 +54,13 @@ const stepper = (selector, options = {}) => {
             stIndicators.forEach((si) => si.remove());
         }
 
-        const stepperTabsGroup = CONTAINERS.querySelector('.st-tabs');
-        stepperTabsGroup.insertAdjacentHTML('beforeend', TabsWrapper());
-        const stepperTabsWrapper = stepperTabsGroup.querySelector('.st-tabs-wrapper');
-
+        const stepperTabsScroll = CONTAINERS.querySelector('.st-tabs-scroll');
+        if (!stepperTabsScroll) {
+            const stepperTabsGroup = CONTAINERS.querySelector('.st-tabs');
+            stepperTabsGroup.insertAdjacentHTML('beforeend', TabsWrapper());
+        }
+        
+        const stepperTabsWrapper = CONTAINERS.querySelector('.st-tabs-wrapper');
         ATTRIBUTES(CONTAINERS, {
             'id': `st-container-${ID}`,
             'data-id': `container-${ID}`,
