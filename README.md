@@ -1,11 +1,11 @@
-# stepper.JS 2.2.9
+# stepper.JS 2.2.10
 
 Enhances UI with intuitive step-by-step navigation with stepper vanilla JS library.
 `Stepper.JS` is a versatile vanilla JavaScript library designed to simplify the implementation of step-by-step user interfaces. With `Stepper.JS`, developers can create intuitive and interactive workflows, guiding users through complex processes with ease. Let's delve into the documentation to explore its features, usage, and customization options.
 
 ## Introduction to Stepper.JS
 
-`Stepper.JS` version 2.2.9 is new features, 10% faster and more flexible JavaScript library compared to the previous version, enabling developers to easily build step-by-step navigation. Whether you're designing a multi-step form, a guided tour, or a wizard-like interface, `Stepper.JS` provides the necessary tools to streamline the user experience. (1T ops/s ± 54.5% Fastest)
+`Stepper.JS` version 2.2.10 is new features, 10% faster and more flexible JavaScript library compared to the previous version, enabling developers to easily build step-by-step navigation. Whether you're designing a multi-step form, a guided tour, or a wizard-like interface, `Stepper.JS` provides the necessary tools to streamline the user experience. (1T ops/s ± 54.5% Fastest)
 
 ## Features
 
@@ -85,7 +85,6 @@ To start using `Stepper.JS` in your project, follow these simple steps:
                     theme: "Default",
                 },
                 submitted: true,
-                doneProcess: true,
                 allTabsDisabled: true,
                 containerId: (id) => {
                     console.log(id);
@@ -119,13 +118,12 @@ To start using `Stepper.JS` in your project, follow these simple steps:
 | 2. **indicator**            | Object                     | {}                      | Controls indicator visibility and theme selection.                                                                                                                             |
 | 2.1. **visible**            | Boolean                    | false                   | Provide a visual cue for the active tab number, enhancing user experience and navigation clarity.                                                                              |
 | 2.2. **theme**              | String                     | `Default`               | Allows selection between `Default` and `Classic` tab themes.                                                                                                                   |
-| 3. **doneProcess**          | Boolean                    | false                   | Display indicators of completed processes for preceding tabs, ensuring users are informed about progress.                                                                      |
-| 4. **allTabsDisabled**      | Boolean                    | true                    | Enables all tabs to be clickable on load.                                                                                                                                      |
-| 5. **containerId**          | Number                     | {{dynamic}}             | Assigns a unique ID to the stepper container.                                                                                                                                  |
-| 6. **nextButtonEvent**      | Function                   | () => {}                | Implement functionality to respond to the 'Next' button click event, facilitating seamless progression through the navigation flow.                                            |
-| 6.1. **currentStep**        | Number                     | 1                       | Utilize the provided value in the parameters to set the current step. This functionality is an option available within the nextButtonEvent configuration.                      |
-| 6.2. **nextButtonProcess**  | Function                   | () => {}                | Employ the function provided in the parameters to advance to the next step upon clicking the next button. This action is facilitated through the nextButtonEvent option.       |
-| 7. **prevButtonEvent**      | Function                   | () => {}                | Implement functionality to respond to the 'Previous' button click event, enabling users to navigate back through the steps if needed.                                          |
-| 8. **submitButtonEvent**    | Function                   | () => {}                | Implement functionality to respond to the 'Submit' button click event, allowing users to finalize and submit their inputs or selections.                                       |
-| 9. **tabButtonEvent**       | Function                   | () => {}                | Implement functionality to respond to the 'Tab' button click event, allowing users to using tab button event handler.                                                          |
-| 10. **submitted**           | Boolean                    | false                   | All stepper tabs become active for editing a previously submitted form. In the edit mode, the user should be able to jump between steps and make changes without restrictions  |
+| 3. **allTabsDisabled**      | Boolean                    | true                    | Enables all tabs to be clickable on load.                                                                                                                                      |
+| 4. **containerId**          | Number                     | {{dynamic}}             | Assigns a unique ID to the stepper container.                                                                                                                                  |
+| 5. **nextButtonEvent**      | Function                   | () => {}                | Implement functionality to respond to the 'Next' button click event, facilitating seamless progression through the navigation flow.                                            |
+| 5.1. **currentStep**        | Number                     | 1                       | Utilize the provided value in the parameters to set the current step. This functionality is an option available within the nextButtonEvent configuration.                      |
+| 5.2. **nextButtonProcess**  | Function                   | () => {}                | Employ the function provided in the parameters to advance to the next step upon clicking the next button. This action is facilitated through the nextButtonEvent option.       |
+| 6. **prevButtonEvent**      | Function                   | () => {}                | Implement functionality to respond to the 'Previous' button click event, enabling users to navigate back through the steps if needed.                                          |
+| 7. **submitButtonEvent**    | Function                   | () => {}                | Implement functionality to respond to the 'Submit' button click event, allowing users to finalize and submit their inputs or selections.                                       |
+| 8. **tabButtonEvent**       | Function                   | () => {}                | Implement functionality to respond to the 'Tab' button click event, allowing users to using tab button event handler.                                                          |
+| 9. **submitted**            | Boolean                    | false                   | All stepper tabs become active for editing a previously submitted form. In the edit mode, the user should be able to jump between steps and make changes without restrictions  |

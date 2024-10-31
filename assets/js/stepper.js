@@ -1,4 +1,4 @@
-/* Stepper Vanilla JS Library v2.2.9  */
+/* Stepper Vanilla JS Library v2.2.10  */
 "use strict";
 const stepper = (selector, options = {}) => {
     const CONTAINER = document.querySelectorAll(selector);    
@@ -36,7 +36,6 @@ const stepper = (selector, options = {}) => {
         const containerWidth = TO(options?.containerWidth, 420);
         const indicatorVisible = TO(options?.indicator?.visible, false);
         const indicatorTheme = TO(options?.indicator?.theme, "Classic");
-        const doneProcess = TO(options?.doneProcess, false);
         const nextButtonEvent = TO(options?.nextButtonEvent, undefined);
         const prevButtonEvent = TO(options?.prevButtonEvent, undefined);
         const submitButtonEvent = TO(options?.submitButtonEvent, undefined);
@@ -152,10 +151,10 @@ const stepper = (selector, options = {}) => {
             if (stepPane) addClass(stepPane, 'show');
             AriaHidden(CONTAINERS.querySelector(`[data-id="pane-${step}"]`), "false");
 
-            if (doneProcess || indicatorVisible) {
+            if (indicatorVisible) {
                 stepperTabs.forEach((t, i) => {
                     if (i < step - 1) {
-                        if (doneProcess) addClass(t, 'step-done');
+                        addClass(t, 'step-done');
                         if (indicatorVisible) {
                             const ind = CONTAINERS.querySelector(`.st-indicator:nth-child(${i + 1})`);
                             if (ind) addClass(ind, 'step-done');
