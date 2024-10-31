@@ -5,7 +5,7 @@ Enhances UI with intuitive step-by-step navigation with stepper vanilla JS libra
 
 ## Introduction to Stepper.JS
 
-`Stepper.JS` version 2.2.12 is new features, 10% faster and more flexible JavaScript library compared to the previous version, enabling developers to easily build step-by-step navigation. Whether you're designing a multi-step form, a guided tour, or a wizard-like interface, `Stepper.JS` provides the necessary tools to streamline the user experience. (1T ops/s ± 54.5% Fastest)
+`Stepper.JS` version 2.2.12 is new features, 100% faster and more flexible JavaScript library compared to the previous version, enabling developers to easily build step-by-step navigation. Whether you're designing a multi-step form, a guided tour, or a wizard-like interface, `Stepper.JS` provides the necessary tools to streamline the user experience. (1.8T ops/s ± 28.77% Fastest)
 
 ## Features
 
